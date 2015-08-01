@@ -4,6 +4,7 @@
 
 var model = require(__model + 'user');
 var encrypt = require(__lib + 'encrypt');
+var _ = require('lodash');
 
 function addSession(session, data) {
     session.user = {
@@ -12,16 +13,19 @@ function addSession(session, data) {
     };
 }
 
+var responseTemplate = function () {
+    this.status = 0;
+    this.data = null;
+    this.error = null;
+};
+
 
 module.exports = {
     login: function (req, res) {
         var username = req.body.username
             , password = req.body.password;
-        console.log(username, password);
-        var response = {
-            status: 0,
-            data: {}
-        };
+
+        var response = new responseTemplate();
 
         var query = {
             '$or': [
@@ -32,25 +36,24 @@ module.exports = {
 
         model.findOne(query, function (err, result) {
             if (err) {
-                console.log(err);
-                res.json(response);
+                response.error = err;
+                return res.json(response);
             }
 
             if (!result) {
-                response.data = {
-                    message: 'username or email does not exist.'
-                }
+                response.error = {message: 'username or email does not exist.'};
+
             } else {
                 var isLogin = encrypt.validate(result.password, password + '');
+
                 if (!isLogin) {
-                    response.data = {
-                        message: 'username and password does not match'
-                    }
+                    response.error = {message: 'username and password does not match'};
 
                 } else {
                     addSession(req.session, result);
                     delete result._id;
                     delete result.password;
+
                     response.status = 1;
                     response.data = result;
                 }
@@ -68,10 +71,7 @@ module.exports = {
     },
 
     getUser: function (req, res) {
-        var response = {
-            status: 0,
-            data: {}
-        };
+        var response = new responseTemplate();
 
         var username = req.username;
         var query = {
@@ -86,8 +86,8 @@ module.exports = {
 
         model.findOne(query, options, function (err, result) {
             if (err) {
-                console.log(err);
-                res.json(response);
+                response.error = err;
+                return res.json(response);
             }
             response.status = 1;
             response.data = result;
@@ -96,29 +96,23 @@ module.exports = {
     },
 
     register: function (req, res) {
-        var response = {
-            status: 0,
-            data: {}
-        };
+        var response = new responseTemplate();
+
         var info = req.body;
         var user = new model(info);
-
         user.save(function (err, result) {
             if (err) {
-                if (err.code === 11000) {
-                    response.data.message = 'this username is exist';
-                }
+                response.error = (err.code === 11000) ? {message: 'this username or email is exist'} : err;
                 res.json(response);
+                return;
             }
 
             addSession(req.session, result);
 
             delete result._id;
             delete result.password;
-            response = {
-                status: 1,
-                data: result
-            };
+            response.status = 1;
+            response.data = result;
 
             res.json(response);
 
@@ -127,8 +121,43 @@ module.exports = {
 
     }
     ,
-    put: function (req, res) {
+    update: function (req, res) {
+        var response = new responseTemplate();
+        var info = req.body;
+        if (!req.session.user || info.username) {
+            response.error = {message: 'Data error'};
+            return res.json(response);
 
+        }
+
+        var query = {_id: req.session.user.id};
+
+
+        model.findOne(query, function (err, user) {
+            if (err) {
+                response.error = err;
+                return res.json(response);
+            }
+
+            if (!user) {
+                response.error = {
+                    message: 'error. This user is not exist!'
+                }
+            }
+
+            _.extend(user, info);
+            user.full_name = user.first_name + ' ' + user.last_name;
+
+            user.save(function (err, result) {
+                if (err) {
+                    response.error = err;
+                    return res.json(response);
+                }
+                response.status = 1;
+                response.data = result;
+                res.json(response);
+            });
+        });
 
     }
     ,

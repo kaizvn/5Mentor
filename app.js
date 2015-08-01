@@ -79,6 +79,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.post('/login', userModel.login);
+app.get('/logout', userModel.logout);
 app.post('/register', userModel.register);
 
 var root = '/api';

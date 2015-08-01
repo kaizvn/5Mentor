@@ -13,7 +13,7 @@ module.exports = function (app, root) {
     router.route('/user')
         .get(controller.getUser)
         .post(controller.register)
-        .put(controller.put)
+        .put(controller.update)
         .delete(controller.delete);
 
     app.use(root, router);

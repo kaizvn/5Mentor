@@ -5,10 +5,9 @@
 
 var mongo = require('mongoose');
 
+
 var subject = mongo.Schema({
-    name: String,
-    password: String,
-    email: String,
+    name: {type: String, require: true},
     match_skills: [String],
     teachers: [
         {
@@ -37,10 +36,7 @@ var subject = mongo.Schema({
             }
         }
     ],
-    age: Number,
-    mobile: Number,
-    address: String,
-    available: Boolean
+    available: {type: Boolean, default: false}
 });
 
 

@@ -33,13 +33,11 @@ user.pre('save', function (next) {
     var user = this;
     // Check user's password is modified
     if (!user.isModified('password')) return next();
-
+    console.log(user.first_name, user.last_name);
     user.full_name = user.first_name + ' ' + user.last_name;
     // Encode password
     user.password = encrypto.hash(user.password);
     next();
-
-
 });
 
 
