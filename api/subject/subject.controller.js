@@ -82,8 +82,8 @@ module.exports = {
                 if (!peopleInNeeds || !peopleInNeeds.length) response.data = [];
 
                 else {
-                    User.populate(peopleInNeeds, 'person_info.user_info', function () {
-                        response.data = peopleInNeeds;
+                    User.populate(peopleInNeeds, 'person_info.user_info', function (err, allResults) {
+                        response.data = allResults;
                         res.json(response);
                     });
 
