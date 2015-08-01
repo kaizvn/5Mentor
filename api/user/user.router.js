@@ -11,8 +11,8 @@ var router = express.Router();
 
 module.exports = function (app, root) {
     router.route('/user')
-        .get(controller.get)
-        .post(controller.post)
+        .get(controller.getUser)
+        .post(controller.register)
         .put(controller.put)
         .delete(controller.delete);
 
