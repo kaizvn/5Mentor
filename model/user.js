@@ -7,12 +7,12 @@ var mongo = require('mongoose')
 
 
 var user = mongo.Schema({
-    username: {type: String, unique: true},
-    password: String,
+    username: {type: String, unique: true, require: true},
+    password: {type: String, require: true},
     full_name: String,
     first_name: String,
     last_name: String,
-    email: {type: String, unique: true},
+    email: {type: String, require: true, unique: true},
     location: String,
     age: Number,
     mobile: String,
