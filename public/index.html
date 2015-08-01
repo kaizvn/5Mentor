@@ -23,100 +23,12 @@
 
 </head>
 
-<body id="page-top">
-  <div id="header">
-    <nav id="main-nav" class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand page-scroll" href="#page-top">5Teacher</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-left">
-            <li>
-              <a class="page-scroll" href="#contact">Find Lessons</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="#contact">Students</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="#contact">Teachers</a>
-            </li>
-
-            <li>
-              <a class="page-scroll" href="#contact">How it works</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a class="page-scroll" href="#contact">Sign Up</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="#contact">Sign In</a>
-            </li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
-    <div id="heading"></div>
-    <div id="heading_bottom"></div>
-    <div id="header-search-form">
-      <form class="form-inline">
-        <div class="form-group">
-          <input type="text" class="form-control" id="" placeholder="Enter your subject">
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address">
-        </div>
-        <button type="submit" class="btn btn-default">Search for your Teacher</button>
-      </form>
-    </div>
-  </div>
+<body id="page-top" ng-app="FindTeacherApp">
+  <!-- BEGIN HEADER -->
+  <div data-ng-include="'template/header.html'" data-ng-controller="HeaderController"></div>
+  <!-- END HEADER -->
   <!--BEGIN SUBJECT-->
-  <div class="container subject-list">
-    <div class="row">
-      <div class="col-md-8 item">
-        <img src="http://dummyimage.com/600x326/000/fff" />
-      </div>
-      <div class="col-md-4 item">
-        <img src="http://dummyimage.com/326x326/000/fff" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 item">
-        <img src="http://dummyimage.com/326x326/000/fff" />
-      </div>
-
-      <div class="col-md-4 item">
-        <img src="http://dummyimage.com/326x326/000/fff" />
-      </div>
-
-      <div class="col-md-4 item">
-        <img src="http://dummyimage.com/326x326/000/fff" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 item">
-        <img src="http://dummyimage.com/326x326/000/fff" />
-      </div>
-
-      <div class="col-md-8 item">
-        <img src="http://dummyimage.com/600x326/000/fff" />
-      </div>
-    </div>
-  </div>
+  <div ui-view></div>
   <!--END SUBJECT-->
   <!-- BEGIN HOW IT WORK -->
   <div class="container">
@@ -146,11 +58,31 @@ we take care of all the details, so you can focus on learning. <a href="#">Learn
   </div>
   <!-- END HOW IT WORK -->
   <!-- BEGIN FOOTER -->
-  <div id="footer">
-    FOOTER
-
-  </div>
+  <div data-ng-include="'template/footer.html'" data-ng-controller="FooterController"></div>
   <!-- END FOOTER -->
+
+  <script src="/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+
+  <script src="/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <!-- END CORE JQUERY PLUGINS -->
+
+  <!-- BEGIN CORE ANGULARJS PLUGINS -->
+  <script src="/lib/angularjs/angular.min.js" type="text/javascript"></script>
+  <script src="/lib/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script>
+  <script src="/lib/angular-touch/angular-touch.min.js" type="text/javascript"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js" type="text/javascript"></script>
+  <script src="/lib/oclazyload/dist/ocLazyLoad.min.js" type="text/javascript"></script>
+
+  <!-- END CORE ANGULARJS PLUGINS -->
+
+  <!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+  <script src="/js/layout.js" type="text/javascript"></script>
+  <script src="/js/app.js" type="text/javascript"></script>
+  <script src="/js/directives.js" type="text/javascript"></script>
+  <script src="/js/controllers/homeCtrl.js" type="text/javascript"></script>
+  <!-- END APP LEVEL ANGULARJS SCRIPTS -->
+
 </body>
 
 </html>

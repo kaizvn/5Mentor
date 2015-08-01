@@ -17,6 +17,13 @@
   "dependencies": {
     "angularjs": "~1.4.3",
     "bootstrap": "~3.3.5",
-    "fontawesome": "~4.4.0"
+    "fontawesome": "~4.4.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-sanitize": "~1.4.3",
+    "angular-touch": "~1.4.3",
+    "oclazyload": "~1.0.4"
+  },
+  "resolutions": {
+    "angular": ">= 1.0.8"
   }
 }
