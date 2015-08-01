@@ -5,39 +5,38 @@
 
 var mongo = require('mongoose');
 
+var teacherSchema = new mongo.Schema({
+    teachers: {
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'subjectMaster'
+    }
+});
+
+var studentSchema = new mongo.Schema({
+    students: {
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'subjectSeeker'
+    }
+});
 
 var subject = mongo.Schema({
     name: {type: String, require: true},
+    image_url: {type: String, default: 'url_default.jpg'},
+    short_desc: String,
     match_skills: [String],
-    teachers: [
-        {
-            tid: String,
-            teacher_id: {type: mongo.Schema.Types.ObjectId, ref: 'Teacher'},
-            location: String,
-            loc: {
-                type: {type: String, default: "Point"},
-                "coordinates": [Number, Number]
-            },
-            cost: {
-                money: Number,
-                currency: String,
-                duration: String
-            }
-        }
-    ],
-    students: [
-        {
-            sid: String,
-            student_id: {type: mongo.Schema.Types.ObjectId, ref: 'Student'},
-            location: String,
-            loc: {
-                type: {type: String, default: "Point"},
-                "coordinates": [Number, Number]
-            }
-        }
-    ],
+    teachers: [teacherSchema],
+    students: [studentSchema],
     available: {type: Boolean, default: false}
 });
 
+/*db.items.createIndex({"loc":"2dsphere"})*/
+
+
+/*subject.pre('save', function (next) {
+ if (this.isNew && Array.isArray(this.loc.coordinates) && 0 === this.loc.coordinates.length) {
+ this.loc.coordinates = undefined;
+ }
+ next();
+ });*/
 
 module.exports = mongo.model('Subject', subject);

@@ -17,6 +17,10 @@ module.exports = function (app, root) {
         .delete(controller.delete);
 
     router.get('/subject/:id', controller.getSubject);
+    router.get('/subject/:id/:latitude/:longitude', controller.getSubjectByLocation);
+
+    router.post('beMaster',controller.beSubjectMaster)
+    router.post('beSeeker',controller.beSubjectSeeker)
 
     app.use(root, router);
 };
