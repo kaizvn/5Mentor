@@ -4,6 +4,7 @@
 
 
 var subjectModel = require(__model + 'subject');
+var User = require(__model + 'user');
 var subjectSource = {
     student: require(__model + 'subjectSeeker'),
     teacher: require(__model + 'subjectMaster')
@@ -79,8 +80,15 @@ module.exports = {
                 console.log('subs:', peopleInNeeds);
 
                 if (!peopleInNeeds || !peopleInNeeds.length) response.data = [];
-                else response.data = peopleInNeeds;
-                res.json(response);
+
+                else {
+                    User.populate(peopleInNeeds, 'person_info.user_info', function () {
+                        response.data = peopleInNeeds;
+                        res.json(response);
+                    });
+
+                }
+
             });
 
         /*db.items.find({loc: { $near : {$geometry :{ type :'Point', coordinates : [106.701904, 10.77663]  }, $maxDistance : 20}  } }).explain("executionStats")*/

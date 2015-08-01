@@ -62,7 +62,7 @@ module.exports = {
                     response.data = result;
                 }
             }
-
+            console.log('session: ', req.session);
             res.json(response)
         });
     },
