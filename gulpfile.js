@@ -5,7 +5,6 @@
 
 var gulp = require('gulp'),
     connect = require('gulp-connect')
-    , server = require('gulp-express')
     , nodemon = require('gulp-nodemon')
     , jshint = require('gulp-jshint');
 
