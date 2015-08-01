@@ -4,13 +4,13 @@
 
 
 var express = require('express')
-    , controller = require('./controller');
+    , controller = require('./student.controller');
 
 
 var router = express.Router();
 
 module.exports = function (app, root) {
-    router.route('/user')
+    router.route('/student')
         .get(controller.get)
         .post(controller.post)
         .put(controller.put)

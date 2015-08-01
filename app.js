@@ -70,7 +70,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 var root = '/api';
 apis.forEach(function (name) {
-    var path = __api + name + '/router.js';
+    var path = __api + name + '/' + name + '.router.js';
 
     fs.exists(path, function (exist) {
         console.log('load %s api...', name);

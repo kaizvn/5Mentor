@@ -4,7 +4,7 @@
 
 
 var express = require('express')
-    , controller = require('./controller');
+    , controller = require('./subject.controller');
 
 
 var router = express.Router();
