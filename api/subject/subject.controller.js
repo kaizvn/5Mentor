@@ -91,7 +91,7 @@ module.exports = {
 
     beSubjectMaster: function (req, res) {
         var response = new responseTemplate();
-        var params = req.params;
+        var params = req.body;
         if (!!params.longitude || !!params.latitude || !!params.subject_id || !params.description) {
             response.error = {
                 message: 'invalid input info.'
@@ -136,7 +136,7 @@ module.exports = {
 
     beSubjectSeeker: function (req, res) {
         var response = new responseTemplate();
-        var params = req.params;
+        var params = req.body;
         if (!!params.longitude || !!params.latitude || !!params.subject_id || !params.description) {
             response.error = {
                 message: 'invalid input info.'
