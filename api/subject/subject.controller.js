@@ -40,7 +40,7 @@ module.exports = {
             response.status = 1;
             console.log('subs:', subjects);
 
-            if (subjects) response.data = [];
+            if (!subjects) response.data = [];
             else response.data = (req.params.id) ? subjects[0] : subjects;
             res.json(response);
         });
