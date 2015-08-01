@@ -5,6 +5,7 @@
 
 var gulp = require('gulp'),
     connect = require('gulp-connect')
+    , server = require('gulp-express')
     , nodemon = require('gulp-nodemon')
     , jshint = require('gulp-jshint');
 
@@ -22,8 +23,8 @@ gulp.task('html', function () {
 
 gulp.task('watch', function () {
     gulp.watch(['./public/*.html'], ['html']);
+    gulp.watch(['./api/*.js','./config/*', '.model/*'], ['develop']);
 });
-
 
 gulp.task('lint', function () {
     gulp.src('./**/*.js')
@@ -34,12 +35,12 @@ gulp.task('develop', function () {
     nodemon({
         script: 'app.js'
         , ext: 'html js'
-        , ignore: ['ignored.js']
-        , tasks: ['lint']
+        , ignore: ['public/','./public/', __dirname + '/public']
+
     })
         .on('restart', function () {
-            console.log('restarted!')
+            console.log('restarted!');
         })
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['develop']);
