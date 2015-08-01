@@ -10,7 +10,9 @@ var express = require('express')
     , bodyParser = require('body-parser')
     , path = require('path')
     , mongoose = require('mongoose')
-    , fs = require('fs');
+    , fs = require('fs')
+    , session = require('express-session')
+    , MongoStore = require('connect-mongo')(session);
 
 global.CONFIG = config = require('./config/env/' + env);
 
@@ -48,6 +50,20 @@ var apis = fs.readdirSync(__api);
 
 
 /* frontend path */
+
+var sessionOptions = {
+    mongooseConnection: db,
+    touchAfter: 24 * 3600, // time period in seconds
+    ttl: 14 * 24 * 60 * 60,// = 14 days. Default
+    moreOptions: {stringify: true}
+};
+
+app.use(session({
+    secret: 'no pain no gain',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore(sessionOptions)
+}));
 
 
 app.use(express.static(path.join(__dirname, '/public')));
