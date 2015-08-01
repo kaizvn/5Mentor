@@ -7,27 +7,32 @@ var mongo = require('mongoose')
 
 
 var user = mongo.Schema({
-    username: String,
+    username: {type: String, unique: true},
     password: String,
     full_name: String,
     first_name: String,
     last_name: String,
-    email: String,
+    email: {type: String, unique: true},
     location: String,
-    loc: {
-        type: {type: String, default: "Point"},
-        "coordinates": [Number]
-    },
     age: Number,
-    mobile: Number,
-    address: String
+    mobile: String,
+    address: String,
+    avatar_url: String,
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // EnScript Password before save to database
 user.pre('save', function (next) {
     var user = this;
     // Check user's password is modified
-    if (!user.isModified('password') || user.old_system == true) return next();
+    if (!user.isModified('password')) return next();
 
     user.full_name = user.first_name + ' ' + user.last_name;
     // Encode password
@@ -38,4 +43,4 @@ user.pre('save', function (next) {
 });
 
 
-module.exports = mongo.model('user', user);
+module.exports = mongo.model('User', user);

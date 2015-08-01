@@ -8,14 +8,13 @@ module.exports = {
         host: 'localhost',
         port: 3000
     },
-
     salt: 'wherewasiwhentherocketscometolifeandcarryyouawayintothealligatorsky',
 
     mongodb: {
-        'host': '104.199.181.18',
-        'port': 27017,
-        'database_name': 'ncct_dev',
-        'options': {
+        host: 'localhost',
+        port: 27017,
+        database_name: 'ncct_dev',
+        options: {
             db: {
                 native_parser: true
             },
