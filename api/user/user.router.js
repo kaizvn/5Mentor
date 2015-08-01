@@ -16,5 +16,7 @@ module.exports = function (app, root) {
         .put(controller.update)
         .delete(controller.delete);
 
+    router.get('/user/:username', controller.getUser);
+
     app.use(root, router);
 };

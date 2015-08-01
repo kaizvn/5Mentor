@@ -4,11 +4,13 @@
 
 var model = require(__model + 'user');
 var encrypt = require(__lib + 'encrypt');
+var mongo = require('mongoose');
+var objectId = mongo.Schema.Types.ObjectId;
 var _ = require('lodash');
 
 function addSession(session, data) {
     session.user = {
-        id: data._id,
+        _id: data._id,
         username: data.username
     };
 }
@@ -71,19 +73,27 @@ module.exports = {
     },
 
     getUser: function (req, res) {
+        var query = {};
+        if (req.params.username) {
+            console.log(req.params);
+            var username = req.params.username;
+            query = {
+                '$or': [
+                    {username: username},
+                    {email: username}
+                ]
+            };
+        } else {
+            if (!req.session.user || !req.session.user._id)  return res.redirect('/');
+            console.log('here');
+            query = {_id: req.session.user._id};
+        }
         var response = new responseTemplate();
 
-        var username = req.username;
-        var query = {
-            '$or': [
-                {username: username},
-                {email: username}
-            ]
-        };
         var options = {
             _id: 0
         };
-
+        console.log(query);
         model.findOne(query, options, function (err, result) {
             if (err) {
                 response.error = err;
@@ -91,6 +101,7 @@ module.exports = {
             }
             response.status = 1;
             response.data = result;
+            res.json(response);
         });
 
     },
@@ -130,7 +141,7 @@ module.exports = {
 
         }
 
-        var query = {_id: req.session.user.id};
+        var query = {_id: req.session.user._id};
 
 
         model.findOne(query, function (err, user) {

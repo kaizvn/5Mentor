@@ -100,7 +100,7 @@ module.exports = {
         }
 
         var subjectId = mongo.Schema.Types.ObjectId(params.subject_id);
-        var teacherId = mongo.Schema.Types.ObjectId(req.session.user.teacherId);
+        var teacherId = req.session.user._tid;
 
         var info = {
             subject_info: subjectId,
@@ -145,7 +145,7 @@ module.exports = {
         }
 
         var subjectId = mongo.Schema.Types.ObjectId(params.subject_id);
-        var studentId = mongo.Schema.Types.ObjectId(req.session.user.studentId);
+        var studentId = req.session.user._sid;
 
         var info = {
             subject_info: subjectId,

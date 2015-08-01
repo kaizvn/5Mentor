@@ -25,7 +25,9 @@ var user = mongo.Schema({
     updated_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    _tid: {type: mongo.Schema.Types.ObjectId, ref: 'Teacher'},
+    _sid: {type: mongo.Schema.Types.ObjectId, ref: 'Student'}
 });
 
 // EnScript Password before save to database
