@@ -3,23 +3,49 @@
  */
 
 
-
 var mongo = require('mongoose');
 
-var user = mongo.Schema({
-    username: String,
-    password: String,
-    email: String,
-    location: String,
-    loc: {
-        type: {type: String, default: "Point"},
-        "coordinates": [Number]
+var comment = new mongo.Schema({
+    teacher_id: {
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'Teacher'
     },
-    age: Number,
-    mobile: Number,
-    address: String
+    content: String,
+    rating: Number,
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 
+var student = mongo.Schema({
+    student_info: {
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    comment: [comment],
+    subjects: [{
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'Subject'
+    }],
+    activities: [{
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'Activities'
+    }],
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-module.exports = mongo.model('user', user);
+
+module.exports = mongo.model('Student', student);
