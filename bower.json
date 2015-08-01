@@ -1,0 +1,20 @@
+{
+  "name": "ncct",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kaizvn/ncct",
+  "authors": [
+    "Hung H. Nguyen <Hungnh1704@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.3"
+  }
+}

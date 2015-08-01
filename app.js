@@ -39,16 +39,27 @@ db.once('open', function () {
 
 var apis = fs.readdirSync(__api);
 
-console.log(path.join(__dirname, '/public'));
+
+/* 404 */
+/*app.route('/:url(api|auth|components|app|bower_components|assets)/!*')
+ .get(function (req, res) {
+ res.sendStatus(404);
+ });*/
+
+
+/* frontend path */
+
+
 app.use(express.static(path.join(__dirname, '/public')));
 
+var root = '/api';
 apis.forEach(function (name) {
     var path = __api + name + '/router.js';
 
     fs.exists(path, function (exist) {
         console.log('load %s api...', name);
         console.log('import success : %s', exist);
-        exist && require(path)(app);
+        exist && require(path)(app, root);
     });
 });
 

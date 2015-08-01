@@ -9,12 +9,12 @@ var express = require('express')
 
 var router = express.Router();
 
-module.exports = function (app) {
+module.exports = function (app, root) {
     router.route('/user')
         .get(controller.get)
         .post(controller.post)
         .put(controller.put)
         .delete(controller.delete);
 
-    app.use('/', router);
+    app.use(root, router);
 };
