@@ -11,6 +11,8 @@ var _ = require('lodash');
 function addSession(session, data) {
     session.user = {
         _id: data._id,
+        _tid: data._tid || null,
+        _sid: data._sid || null,
         username: data.username
     };
 }
