@@ -25,7 +25,9 @@ var user = mongo.Schema({
     updated_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    _tid: {type: mongo.Schema.Types.ObjectId, ref: 'Teacher'},
+    _sid: {type: mongo.Schema.Types.ObjectId, ref: 'Student'}
 });
 
 // EnScript Password before save to database
@@ -33,13 +35,11 @@ user.pre('save', function (next) {
     var user = this;
     // Check user's password is modified
     if (!user.isModified('password')) return next();
-
+    console.log(user.first_name, user.last_name);
     user.full_name = user.first_name + ' ' + user.last_name;
     // Encode password
     user.password = encrypto.hash(user.password);
     next();
-
-
 });
 
 

@@ -24,7 +24,7 @@ var comment = new mongo.Schema({
 
 
 var student = mongo.Schema({
-    student_info: {
+    user_info: {
         type: mongo.Schema.Types.ObjectId,
         ref: 'User'
     },

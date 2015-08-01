@@ -11,10 +11,12 @@ var router = express.Router();
 
 module.exports = function (app, root) {
     router.route('/user')
-        .get(controller.get)
-        .post(controller.post)
-        .put(controller.put)
+        .get(controller.getUser)
+        .post(controller.register)
+        .put(controller.update)
         .delete(controller.delete);
+
+    router.get('/user/:username', controller.getUser);
 
     app.use(root, router);
 };

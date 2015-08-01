@@ -23,7 +23,7 @@ var comment = new mongo.Schema({
 
 
 var teacher = new mongo.Schema({
-    teacher_info: {
+    user_info: {
         type: mongo.Schema.Types.ObjectId,
         ref: 'User'
     },
