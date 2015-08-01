@@ -1,0 +1,82 @@
+body{
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+
+}
+.row{
+  margin-top: 30px;
+}
+#header {
+  position: relative;
+  height: 600px;
+}
+#heading {
+  position: absolute;
+  background: url('https://a0.muscache.com/airbnb/static/landing_pages/pretzel/slideshow/hero6-1b571925beb84a386bd4873a41992f21.jpg') center center;
+
+  left: 0;
+  overflow: hidden;
+  right: 0;
+  top: 0;
+  height: 600px;
+  width: 100%;
+}
+
+#heading_bottom, #header-search-form {
+  position: absolute;
+  z-index: 999999;
+  height: 100px;
+  background: #000;
+  width: 100%;
+  color: #fff;
+  top: 500px;
+  padding: 20px;
+  opacity: 0.3;
+  filter: alpha(opacity=30)
+}
+
+#header-search-form {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  background: none;
+  text-align: center;
+  padding-top: 30px;
+}
+
+#header-search-form .form-control{
+
+}
+
+#main-nav{
+  background: none;
+  border: none;
+}
+#main-nav a{
+  color: #fff;
+  text-shadow: none;
+  font-family:  Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.subject-list{
+
+}
+
+.item{
+  position: relative;
+}
+.item img{
+  width: 100%;
+  height: 326px;
+  overflow: hidden;
+}
+.item h2 {
+  position: absolute;
+  top:50%;
+  color: #fff;
+}
+#footer{
+  background: #2B2D2E;
+  padding:50px;
+  text-align: center;
+  color: #fff;
+}
