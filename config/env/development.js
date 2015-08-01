@@ -9,7 +9,7 @@ module.exports = {
         'port': 3000
     },
     'mongodb': {
-        'host': 'localhost',
+        'host': '104.199.181.18',
         'port': 27017,
         'database_name': 'ncct_dev',
         'options': {
