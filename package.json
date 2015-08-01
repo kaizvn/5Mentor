@@ -1,0 +1,28 @@
+{
+  "name": "ncct",
+  "version": "1.0.0",
+  "description": "I don't know what going on here.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "connect-mongo": "^0.8.2",
+    "express-session": "^1.11.3",
+    "express": "^4.13.2",
+    "mongoose": "^4.1.0",
+    "lodash": "^3.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaizvn/ncct.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaizvn/ncct/issues"
+  },
+  "homepage": "https://github.com/kaizvn/ncct#readme"
+}
