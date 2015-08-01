@@ -4,11 +4,14 @@
 
 
 module.exports = {
-    'server': {
-        'host': 'localhost',
-        'port': 3000
+    server: {
+        host: 'localhost',
+        port: 3000
     },
-    'mongodb': {
+
+    salt: 'wherewasiwhentherocketscometolifeandcarryyouawayintothealligatorsky',
+
+    mongodb: {
         'host': '104.199.181.18',
         'port': 27017,
         'database_name': 'ncct_dev',

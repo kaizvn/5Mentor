@@ -5,17 +5,19 @@
 
 var env = process.NODE_ENV || 'development';
 
-global.__api = __dirname + '/api/';
-global.__model = __dirname + '/model/';
-
-
-var config = require('./config/env/' + env)
-    , express = require('express')
+var express = require('express')
     , app = express()
     , bodyParser = require('body-parser')
     , path = require('path')
     , mongoose = require('mongoose')
     , fs = require('fs');
+
+global.CONFIG = config = require('./config/env/' + env);
+
+global.__api = __dirname + '/api/';
+global.__model = __dirname + '/model/';
+global.__lib = __dirname + '/lib/';
+
 
 var HOST = process.HOST || config.server.host || 'localhost'
     , PORT = process.PORT || config.server.port || 3000;
@@ -37,12 +39,8 @@ db.once('open', function () {
 
 var apis = fs.readdirSync(__api);
 
-app.route('/').get(function (req, res) {
-    res.send('hello world');
-});
-
-
-app.use("/public", express.static(path.join(__dirname, 'public')));
+console.log(path.join(__dirname, '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 apis.forEach(function (name) {
     var path = __api + name + '/router.js';
