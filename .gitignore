@@ -87,5 +87,5 @@ crashlytics.properties
 crashlytics-build.properties
 
 public/lib/
-config/env/development.js
+config/env
 
