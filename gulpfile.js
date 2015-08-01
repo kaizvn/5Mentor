@@ -35,8 +35,7 @@ gulp.task('develop', function () {
     nodemon({
         script: 'app.js'
         , ext: 'html js'
-        , ignore: ['public/','./public/', __dirname + '/public']
-
+        , ignore: ['public/*','./public/*']
     })
         .on('restart', function () {
             console.log('restarted!');
