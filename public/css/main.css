@@ -56,6 +56,7 @@ body{
   color: #fff;
   text-shadow: none;
   font-family:  Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
 }
 
 .subject-list{
@@ -75,6 +76,7 @@ body{
   top:50%;
   color: #fff;
 }
+
 #footer{
   background: #2B2D2E;
   padding:50px;
