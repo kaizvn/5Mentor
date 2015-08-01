@@ -1,7 +1,7 @@
 body{
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-
+  color: #414141;
 }
 .row{
   margin-top: 30px;
@@ -50,6 +50,7 @@ body{
 #main-nav{
   background: none;
   border: none;
+  z-index: 99999999;
 }
 #main-nav a{
   color: #fff;
