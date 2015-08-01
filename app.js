@@ -27,11 +27,10 @@ app.route('/').get(function (req, res) {
 
 apis.forEach(function (name) {
     var path = __api + name + '/router.js';
-    console.log('Load api : %s', path);
 
     fs.exists(path, function (exist) {
-        console.log('Import %s...', name);
-        console.log('import status : %s', exist);
+        console.log('load %s api...', name);
+        console.log('import success : %s', exist);
         exist && require(path)(app);
     });
 });
