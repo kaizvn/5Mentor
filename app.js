@@ -13,6 +13,7 @@ var config = require('./config/env/' + env)
     , express = require('express')
     , app = express()
     , bodyParser = require('body-parser')
+    , path = require('path')
     , mongoose = require('mongoose')
     , fs = require('fs');
 
@@ -39,6 +40,9 @@ var apis = fs.readdirSync(__api);
 app.route('/').get(function (req, res) {
     res.send('hello world');
 });
+
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 apis.forEach(function (name) {
     var path = __api + name + '/router.js';
