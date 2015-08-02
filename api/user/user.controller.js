@@ -75,6 +75,7 @@ module.exports = {
     },
 
     getUser: function (req, res) {
+        console.log(req.session.user);
         var query = {};
         if (req.params.username) {
             console.log(req.params);
@@ -93,7 +94,6 @@ module.exports = {
         var response = new responseTemplate();
 
         var options = {
-            _id: 0
         };
         console.log(query);
         model.findOne(query, options, function (err, result) {

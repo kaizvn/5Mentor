@@ -5,6 +5,8 @@
 
 var Subject = require(__model + 'subject');
 var User = require(__model + 'user');
+var Teacher = require(__model + 'teacher');
+
 var subjectSource = {
     students: require(__model + 'subjectSeeker'),
     teachers: require(__model + 'subjectMaster')
@@ -49,10 +51,18 @@ module.exports = {
                 res.json(response);
             }
             else {
-                subjectSource[populateList].populate(subjectMasters, populateList,
+                console.log('master', subjectMasters[0][populateList]);
+                var str = populateList + '.user_info';
+                console.log(str);
+                User.populate(subjectMasters, str,
+                    //User.populate(subjectMasters, str,
                     function (err, finalList) {
+                        /*console.log('semi', semiFinalList[0]);
+                         User.populate(semiFinalList, str, function (err, finalList) {*/
                         response.data = finalList;
                         res.json(response);
+                        //});
+
                     });
             }
 
@@ -123,10 +133,12 @@ module.exports = {
 
         var subjectId = body.subject_id;
         var teacherId = req.session.user._tid;
+        var userId = req.session.user._id;
 
         var info = {
             subject_info: subjectId,
             person_info: teacherId,
+            user_info: userId,
             location: body.location,
             description: body.description,
             loc: {

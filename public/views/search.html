@@ -1,7 +1,41 @@
 <div class="container subject-list">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Results</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Results</h1>
+
+            <div id="SearchResults" class="Result" style="height: auto;">
+                <div ng-repeat="result in results.data[0].teachers">
+                    <a href="#">
+                        <!--<div class="left">{{result._id}}</div>
+                        <div class="right">{{result.cost.money}}</div>
+                        <div class="center">{{result.description}}</div>-->
+                        coming soon.
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<style>
+    .Result .left {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 152px;
+    }
+
+    .Result .right {
+        border-left: 1px solid #ccc;
+        bottom: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 220px;
+    }
+
+    .Result .center {
+        padding: 18px 250px 18px 176px;
+    }
+</style>

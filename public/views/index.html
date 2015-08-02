@@ -1,7 +1,7 @@
 <div class="container subject-list" data-ng-controller="HomeController">
   <div class="row">
     <div class="col-md-4 item" ng-repeat="subject in subjects">
-      <a href="#/search.html?service={{subject.name | lowercase}}"><img src="{{ subject.image_url }}" /></a>
+      <a href="#/search.html?service={{subject._id | lowercase}}"><img src="{{ subject.image_url }}" /></a>
       <h2>{{subject.name}}</h2>
     </div>
   </div>

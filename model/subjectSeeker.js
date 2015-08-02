@@ -11,6 +11,7 @@ var subjectSeeker = mongo.Schema({
         type: mongo.Schema.Types.ObjectId, ref: 'Subject'
     },
     person_info: {type: mongo.Schema.Types.ObjectId, ref: 'Student'},
+    user_info: {type: mongo.Schema.Types.ObjectId, ref: 'User'},
     location: String,
     description: String,
     loc: {
