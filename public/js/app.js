@@ -25,7 +25,14 @@ FindTeacherApp.config(function($stateProvider, $urlRouterProvider) {
     url: '/search.html',
     templateUrl: '../views/search.html'
   })
-
+  .state('signup', {
+    url: '/auth/signup.html',
+    templateUrl: '../views/signup.html'
+  })
+  .state('signin', {
+    url: '/auth/signin.html',
+    templateUrl: '../views/signin.html'
+  })
 
 });
 
@@ -37,5 +44,17 @@ FindTeacherApp.controller('HeaderController', function($scope) {
 // Init Footer
 
 FindTeacherApp.controller('FooterController', function($scope) {
+
+});
+
+FindTeacherApp.controller('HowItWorkController', function($scope) {
+
+});
+
+FindTeacherApp.controller('LocallyOnlineController', function($scope) {
+
+});
+
+FindTeacherApp.controller('StudentReviewController', function($scope) {
 
 });
