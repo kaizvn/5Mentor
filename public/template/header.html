@@ -49,9 +49,13 @@
         <input type="text" class="form-control search_input" id="" placeholder="Enter your subject">
       </div>
       <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address">
+        <input type="text" ng-model="address" class="form-control search_input" placeholder="Address">
+        <span class="yourlocation">
+          <i class="fa fa-location-arrow" ng-click="getCurrentLocation()"></i>
+        </span>
       </div>
-      <button type="submit" class="btn btn-default">Search for your Teacher</button>
+      <button type="submit" class="btn btn-success search_button">
+        Search for your Teacher</button>
     </form>
   </div>
 </div>

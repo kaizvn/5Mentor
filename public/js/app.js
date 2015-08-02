@@ -38,7 +38,17 @@ FindTeacherApp.config(function($stateProvider, $urlRouterProvider) {
 
 // Init Header
 FindTeacherApp.controller('HeaderController', function($scope) {
-
+  $scope.address = ""
+  $scope.getCurrentLocation = function(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          console.log(position)
+          $scope.address = "Your current location"
+        });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+  }
 });
 
 // Init Footer
