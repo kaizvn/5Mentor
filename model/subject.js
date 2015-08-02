@@ -5,27 +5,19 @@
 
 var mongo = require('mongoose');
 
-var teacherSchema = new mongo.Schema({
-    teachers: {
-        type: mongo.Schema.Types.ObjectId,
-        ref: 'subjectMaster'
-    }
-});
-
-var studentSchema = new mongo.Schema({
-    students: {
-        type: mongo.Schema.Types.ObjectId,
-        ref: 'subjectSeeker'
-    }
-});
-
 var subject = mongo.Schema({
     name: {type: String, require: true},
     image_url: {type: String, default: 'url_default.jpg'},
     short_desc: String,
     match_skills: [String],
-    teachers: [teacherSchema],
-    students: [studentSchema],
+    teachers: [{
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'subjectMaster'
+    }],
+    students: [{
+        type: mongo.Schema.Types.ObjectId,
+        ref: 'subjectSeeker'
+    }],
     available: {type: Boolean, default: false}
 });
 

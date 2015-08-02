@@ -3,11 +3,11 @@
  */
 
 
-var subjectModel = require(__model + 'subject');
+var Subject = require(__model + 'subject');
 var User = require(__model + 'user');
 var subjectSource = {
-    student: require(__model + 'subjectSeeker'),
-    teacher: require(__model + 'subjectMaster')
+    students: require(__model + 'subjectSeeker'),
+    teachers: require(__model + 'subjectMaster')
 };
 
 var mongo = require('mongoose');
@@ -25,24 +25,37 @@ var responseTemplate = function () {
 module.exports = {
     getSubject: function (req, res) {
         var response = new responseTemplate();
-        var query = (req.params.id) ? {id: req.params.id} : {};
+        var query = (req.params.id) ? {_id: req.params.id} : {};
         query.available = true;
 
-        var options = {
-            _id: 0
-        };
+        var options = {};
 
-        subjectModel.find(query, options, function (err, subjects) {
+        var populateList = req.params.list || '';
+
+        Subject.find(query, options).populate(populateList).exec(function (err, subjectMasters) {
             if (err) {
                 response.error = err;
                 return res.json(response);
             }
             response.status = 1;
-            console.log('subs:', subjects);
 
-            if (!subjects) response.data = [];
-            else response.data = (req.params.id) ? subjects[0] : subjects;
-            res.json(response);
+
+            if (!subjectMasters || subjectMasters.length === 0) {
+                response.data = [];
+                res.json(response);
+
+            } else if (!populateList) {
+                response.data = (req.params.id) ? subjectMasters[0] : subjectMasters;
+                res.json(response);
+            }
+            else {
+                subjectSource[populateList].populate(subjectMasters, populateList,
+                    function (err, finalList) {
+                        response.data = finalList;
+                        res.json(response);
+                    });
+            }
+
         });
 
     },
@@ -77,7 +90,6 @@ module.exports = {
 
                 response.status = 1;
 
-                console.log('subs:', peopleInNeeds);
 
                 if (!peopleInNeeds || !peopleInNeeds.length) response.data = [];
 
@@ -97,41 +109,48 @@ module.exports = {
 
     },
 
+
     beSubjectMaster: function (req, res) {
+        console.log(req.session.user);
         var response = new responseTemplate();
-        var params = req.body;
-        if (!!params.longitude || !!params.latitude || !!params.subject_id || !params.description) {
+        var body = req.body;
+        if (!body.longitude || !body.latitude || !body.subject_id || !body.description) {
             response.error = {
                 message: 'invalid input info.'
             };
             return res.json(response);
         }
 
-        var subjectId = mongo.Schema.Types.ObjectId(params.subject_id);
+        var subjectId = body.subject_id;
         var teacherId = req.session.user._tid;
 
         var info = {
             subject_info: subjectId,
             person_info: teacherId,
-            location: params.location,
-            description: params.description,
+            location: body.location,
+            description: body.description,
             loc: {
-                "coordinates": [params.longitude, params.latitude]
+                "coordinates": [body.longitude, body.latitude]
             },
             cost: {
-                money: params.money,
-                currency: params.currency || '$',
-                duration: prams.duration || 'hour'
+                money: body.money,
+                currency: body.currency || '$',
+                duration: body.duration || 'hour'
             }
         };
 
-        var master = new subjectSource['teacher'](info);
+        var master = new subjectSource['teachers'](info);
 
         master.save(function (err, result) {
             if (err) {
                 response.error = err;
                 return res.json(response);
             }
+            Subject.update({_id: subjectId}, {
+                "$push": {"teachers": result._id}
+            }, function (e, b) {
+                console.log('added to list ', b);
+            });
 
             delete result._id;
             response.status = 1;
@@ -144,24 +163,24 @@ module.exports = {
 
     beSubjectSeeker: function (req, res) {
         var response = new responseTemplate();
-        var params = req.body;
-        if (!!params.longitude || !!params.latitude || !!params.subject_id || !params.description) {
+        var body = req.body;
+        if (!!body.longitude || !!body.latitude || !!body.subject_id || !body.description) {
             response.error = {
                 message: 'invalid input info.'
             };
             return res.json(response);
         }
 
-        var subjectId = mongo.Schema.Types.ObjectId(params.subject_id);
+        var subjectId = body.subject_id;
         var studentId = req.session.user._sid;
 
         var info = {
             subject_info: subjectId,
             person_info: studentId,
-            location: params.location,
-            description: params.description,
+            location: body.location,
+            description: body.description,
             loc: {
-                "coordinates": [params.longitude, params.latitude]
+                "coordinates": [body.longitude, body.latitude]
             }
         };
 
@@ -172,6 +191,14 @@ module.exports = {
                 response.error = err;
                 return res.json(response);
             }
+
+
+            Subject.findAndModify({
+                _id: subjectId
+            }, {
+                "$push": {"students": result._id}
+            });
+
 
             delete result._id;
             response.status = 1;
@@ -187,7 +214,7 @@ module.exports = {
     addSubject: function (req, res) {
         var response = new responseTemplate();
         var info = req.body;
-        var subject = new subjectModel(info);
+        var subject = new Subject(info);
         subject.save(function (err, subject) {
             if (err) {
                 response.error = err;

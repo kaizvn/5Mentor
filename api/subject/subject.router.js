@@ -17,10 +17,11 @@ module.exports = function (app, root) {
         .delete(controller.delete);
 
     router.get('/subject/:id', controller.getSubject);
+    router.get('/subject/:id/:list', controller.getSubject);
     router.get('/subject/:id/:latitude/:longitude', controller.getSubjectByLocation);
 
-    router.post('beMaster',controller.beSubjectMaster);
-    router.post('beSeeker',controller.beSubjectSeeker);
+    router.post('/subject/type/master',controller.beSubjectMaster);
+    router.post('/subject/type/seeker',controller.beSubjectSeeker);
 
     app.use(root, router);
 };

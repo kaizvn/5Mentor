@@ -40,7 +40,7 @@ module.exports = {
         if (req.session.user._tid) {
             response.error = {
                 message: 'cannot do this action.'
-            }
+            };
             return res.json(response);
         }
 
@@ -63,6 +63,11 @@ module.exports = {
 
         });
 
+    },
+    getTeacherBySubjectId: function (req, res) {
+        if (req.params.id == null) res.sendStatus(404);
+        var id = req.params.id;
+        var query = {};
     },
     put: function (req, res) {
 

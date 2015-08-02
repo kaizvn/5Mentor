@@ -17,6 +17,7 @@ module.exports = function (app, root) {
         .delete(controller.delete);
 
     router.get('/teacher/:id', controller.getTeacher);
+    router.get('/teacher/subject/:id', controller.getTeacherBySubjectId);
 
     app.use(root, router);
 };

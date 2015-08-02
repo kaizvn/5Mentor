@@ -11,7 +11,7 @@ module.exports = {
     salt: 'wherewasiwhentherocketscometolifeandcarryyouawayintothealligatorsky',
 
     mongodb: {
-        host: 'localhost',
+        host: '104.199.181.18', //'localhost',
         port: 27017,
         database_name: 'ncct_dev',
         options: {
